@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+My Bookmark Detail Page
+{% endblock %}
+
+{% block extra-style %}
+{% endblock %}
+
+{% block content %}
+<h1>북마크 디테일</h1>
+<ul>
+    <li>
+        <a href="{{ object.url }}">{{ object.url }}</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}

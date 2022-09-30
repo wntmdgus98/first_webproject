@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+My Blog Search Page
+{% endblock %}
+
+{% block extra-style %}
+<style>
+    body{
+        background-color: rgb(241, 233, 228) ;
+    }
+    .title {
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+
+    .search_input {
+        margin-bottom: 1.5rem;
+        display: flex;
+        border: 1px solid #A0A0A0;
+        -webkit-box-align: center;
+        align-items: center;
+        transition: all 0.125s ease-in 0s;
+        cursor: text;
+        height: 4rem;
+        padding: 0px 1.5rem;
+    }
+    .search_input svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: 1.25rem;
+        transition: all 0.125s ease-in 0s;
+        margin-right: 0.5rem;
+        width: 2rem;
+        height: 2rem;
+        fill: rgb(173, 181, 189);
+        flex-shrink: 0;
+    }
+    
+    .search_input input {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        height: 2rem;
+        transition: all 0.125s ease-in 0s;
+        font-size: 20px;
+        flex: 1 1 0%;
+        display: block;
+        line-height: 1rem;
+        height: 1rem;
+        padding: 0px;
+        border: none;
+        outline: 0px;
+        background: transparent;
+        color: #070505;
+        min-width: 0px;
+    }
+    .search_elif {
+        margin-bottom: 4rem;
+        font-size: 25px;
+        line-height: 1.5;
+        color: #495057;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<body>
+    <h1 class="title">검색</h1>
+    <br>
+
+    <form method="post"> {% csrf_token %}
+        <div class="search_input">
+            <svg width="17" height="17" viewBox="0 0 17 17">
+                <path fill-rule="evenodd"
+                    d="M13.66 7.36a6.3 6.3 0 1 1-12.598 0 6.3 6.3 0 0 1 12.598 0zm-1.73 5.772a7.36 7.36 0 1 1 1.201-1.201l3.636 3.635c.31.31.31.815 0 1.126l-.075.075a.796.796 0 0 1-1.126 0l-3.636-3.635z"
+                    clip-rule="evenodd" fill="currentColor"></path>
+            </svg>
+            &nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="search_word" required="" id="id_search_word">
+        </div>
+        
+        <input type="submit" value="검색" class="btn btn-primary btn-sm d-none">
+    </form>
+
+    {% if object_list %}
+        {% for post in object_list %}
+            <h2><a href='{{ post.get_absolute_url }}'>{{ post }}</a></h2>
+            {{ post.modify_dt|date:"N d, Y" }}
+            <p>{{ post.description }}</p>
+        {% endfor %}
+    {% elif search_term %}
+        <p class="search_elif">{{ search_term }}를 찾을 수 없습니다.</p>
+    {% endif%}
+</body>
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+<!-- 제목 블록 start(기본값 MY Blog Page)-->
+{% block title %}
+register.html
+{% endblock %}
+<!-- 제목 블록 End-->
+
+<!-- 스타일 블록 start-->
+{% block extra-style %}
+{% endblock %}
+<!-- 스타일 블록 End-->
+
+<!-- 콘텐츠 블록 start-->
+{% block content %}
+    <h1>회원가입</h1>
+    <p class="font-italic">사용자 이름과 비밀번호를 입력하세요!</p>
+
+    {% if form.erros %}
+        <div class="alert alert-danger"></div>
+            <div class="font-weight-bold">Wrong! Please correct the error(s) belows.</div>
+            {{ form.errors }}
+    {% endif %}
+
+    <form action="." method="post" class="card pt-3">{% csrf_token %}
+        <div class="form-group row">
+            {{form.username|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{ form.username|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form.password1|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{ form.password1|add_class:"form-control"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            {{ form.password2|add_label_class:"col-form-label col-sm-3 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{ form.password2|add_class:"form-control"}}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="offset-sm-3 col-sm-5">
+                <input type="submit" value="확인" class="btn btn-info" />
+            </div>
+        </div>
+    </form>
+{% endblock %}
+<!-- 콘텐츠 블록 End-->
+
+<!-- 스크립트 블록 start-->
+{% block extra-script %}
+{% endblock %}
+<!-- 스크립트 블록 End-->

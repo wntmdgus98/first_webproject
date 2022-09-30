@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra-style %}
+<style>
+    body{
+        background-color: rgb(241, 233, 228) ;
+    }
+    .home-image{
+        background-image: url("{% static 'img/경기장.jpg' %}");
+        background-position: center;
+        background-size: 100%;
+        
+        height: 500px;
+        background-repeat: no-repeat;
+        color: rgb(184, 31, 11);
+        border-top: thick double #fc7e08;
+        border-bottom: thick double #fc7e08;
+    }
+    .powered{
+        position: relative;
+        top: 170px;
+        color: rgb(248, 145, 10);
+        text-align: center;
+        font-family: fantasy;
+        font-size: 90px;
+        text-decoration: underline;
+        text-shadow: 1px 1px 1px red;
+        letter-spacing: 3px;
+    }
+    .ne{
+        letter-spacing: 3px;
+    }
+    .ph{
+        letter-spacing: 3px;
+    }
+    .right-box1{
+        text-align: right;
+    }
+    .right-box2{
+        text-align: right;
+    }
+    .home-hr1{
+        height: 1px;
+        background: #bbb;
+        background-image: -webkit-linear-gradient(left, #eee, #777, #eee);
+        background-image: -moz-linear-gradient(left, #eee, #777, #eee);
+        background-image: -ms-linear-gradient(left, #eee, #777, #eee);
+        background-image: -o-linear-gradient(left, #eee, #777, #eee);
+    }
+    .active_homeimg:hover {
+        transform: scale(1.3);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="home-image text-center mt-5">
+        <h4 class="powered"> Soccer Blog</h4>
+    </div>
+
+    <hr class="home-hr1">
+
+    <div class="text-center mt-5">
+        <h3 class="ne">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-card-text" viewBox="0 0 16 16">
+                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+            </svg>&nbsp;News</i></h3>
+        <div class="right-box1"><a href="{% url 'news:index' %}">자세히 보기</a></div>
+    </div>
+
+    <div class="row text-center mt-5">
+        
+            {% for post in posts %}
+            <div class="col-sm-6">
+                <ul>
+                <li><a href='{{ post.get_absolute_url }}'>{{ post }}</a></li>
+                </ul>
+            </div>
+            {% endfor%}
+    </div>
+    <hr class="home-hr1">
+    <div class="text-center mt-5">
+            <h3 class="ph">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54A.505.505 0 0 1 1 12.5v-9a.5.5 0 0 1 .5-.5h13z"/>
+                </svg>&nbsp;Photo</i></h3>
+            <div class="right-box2"><a href="{% url 'photo:index' %}">자세히 보기</a></div>
+    </div>
+
+    <div class="row text-center mt-5">
+            {% for photo in photos %}
+            <div class="col-sm-6">
+                        <a href='{{ photo.get_absolute_url }}'>
+                            <img class="active_homeimg" src="{{ photo.image.url }}" width="70%">
+                        </a>
+            </div>
+            {% endfor%}
+    </div>
+</body>
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}

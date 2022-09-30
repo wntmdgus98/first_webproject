@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Soccer Blog
+        {% endblock %}
+    </title>
+    <!-- Bootstrap CSS only -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- font change [pretendard] -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css" />
+    <style>
+        * {
+            font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        #main-wrapper{
+            margin: 60px 0;
+            height: auto;
+            min-height: 100%;
+            padding-bottom: 266px;
+        }
+        footer {
+            height: 266px;
+            position: relative;
+            transform : translateY(-100%);
+            width: 100%;
+            padding: 60px 0;
+            background-image: linear-gradient(rgb(0, 0, 0),rgb(245, 33, 5));
+        }
+        #contact_info  * {
+            color: #fff;
+            font-size: 14px;
+        }
+    
+        footer .footer_logo {
+            padding-bottom: 24px;
+            color: #fff;
+            font-weight: 600;
+        }
+        .bg-primary {
+            background-image: linear-gradient(rgb(245, 33, 5),rgb(0, 0, 0));
+        }
+        .btn-danger {
+            color: #fff;
+            background-image: linear-gradient(rgb(34, 54, 238),rgb(56, 44, 44));
+            border-color: #0c0500;
+        }
+    </style>
+    {% block extra-style %}
+
+    {% endblock %}
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="nav-link text-white" href="{% url 'home' %}">
+        <span class="navbar-brand mx-5 mb-0 font-weight-bold font-fantasy">Soccer Blog</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item mx-1 btn">
+                    <a class="nav-link text-white" href="{% url 'news:index' %}">News</a>
+                </li>
+                <li class="nav-item mx-1 btn">
+                    <a class="nav-link text-white" href="{% url 'photo:index' %}">Photo</a>
+                </li>
+                <li class="nav-item mx-1 btn">
+                    <a class="nav-link text-white" href="{% url 'bookmark:index' %}">BookMark</a>
+                </li>
+            </ul>
+ 
+             <!-- 회원(로그인/로그아웃/회원가입/비밀번호 변경) Start -->
+             <ul class="navbar-nav mx-5">
+                <li class="nav-item dropdown mx-1 btn">
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg></a>
+                    <div class="dropdown-menu">
+                        <label>추가(Add)</label>
+                        <a class="dropdown-item" href="{% url 'bookmark:add' %}">BookMark</a>
+                        <a class="dropdown-item" href="{% url 'news:add' %}">News</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_add' %}">Album</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_add' %}">Photo</a>
+                        <hr>
+                        <label>변경(Change)</label>
+                        <a class="dropdown-item" href="{% url 'bookmark:change' %}">BookMark</a>
+                        <a class="dropdown-item" href="{% url 'news:change' %}">News</a>
+                        <a class="dropdown-item" href="{% url 'photo:album_change' %}">Album</a>
+                        <a class="dropdown-item" href="{% url 'photo:photo_change' %}">Photo</a>
+                    </div>
+                </li>
+
+                <li class="nav-item mx-1 btn btn">
+                    <a class="nav-link text-white" href="{% url 'news:search' %}">
+                        <svg width="30" height="30" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M13.66 7.36a6.3 6.3 0 1 1-12.598 0 6.3 6.3 0 0 1 12.598 0zm-1.73 5.772a7.36 7.36 0 1 1 1.201-1.201l3.636 3.635c.31.31.31.815 0 1.126l-.075.075a.796.796 0 0 1-1.126 0l-3.636-3.635z" clip-rule="evenodd" fill="currentColor"></path></svg>
+                    </a>
+                </li>
+                <li class="nav-item dropdown mx-1 btn btn-danger">
+                    {% if user.is_active %} <!-- 로그인된 상태라면 -->
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 20 20">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                        </svg>&ensp;{% firstof user.get_short_name user.get_username %}&ensp;
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">비밀번호 변경</a>
+                    </div>
+                    {% else %}
+                    <a class="nav-link dropdown-toggle text-white" href="#" data-toggle="dropdown">
+                        로그인 / 회원가입
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'login' %}">로그인</a>
+                        <a class="dropdown-item" href="{% url 'register' %}">회원가입</a>
+                    </div>
+                    {% endif %}
+                </li>
+            </ul>
+            <!-- 회원(로그인/로그아웃/회원가입/비밀번호 변경) End -->
+        </div>
+    </nav>
+
+    <div id="main-wrapper">
+        <div id="main-content" class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer_logo">Blog</div>
+            <div id="contact_info">
+                <p>
+                    <a class="text-decoration-none" href="tel:+821030937622">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                        </svg>&emsp;010-3093-7622</a>
+                    <br>
+                    <a class="text-decoration-none" href="mailto:wnckstn77@naver.com">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                        </svg>&emsp;wnckstn77@naver.com</a>
+                    <br>
+                </p>
+            </div>
+            <p style="color:#fff">Copyright © <b></b> All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+{% block extra-script %}
+
+{% endblock %}
+</html>

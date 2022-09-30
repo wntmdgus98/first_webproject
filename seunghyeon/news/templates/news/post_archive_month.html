@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+My Blog Archive Year Page
+{% endblock %}
+
+{% block extra-style %}
+{% endblock %}
+
+{% block content %}
+<h1>Post Archives for {{ month|date:"N, Y"}}</h1>
+
+{% for date in date_list %}
+<a href="{% url 'news:post_month_archive' year|date:'Y' date|date:'m' %}" class="btn btn-outline-primary btn-sm mx-1">
+    {{ date|date:"b" }}
+</a>
+{% endfor %}
+
+<br><br>
+
+<div>
+    <ul>
+        {% for post in object_list %}
+        <li class="h5">{{ post.modify_date|date:"Y-m-d"}}&emsp;
+            <a href="{{ post.get_absolute_url }}"><strong>{{ post.title}}</strong></a>
+        </li>
+        {% endfor%}
+    </ul>
+</div>
+{% endblock %}
+
+{% block extra-script %}
+{% endblock %}
